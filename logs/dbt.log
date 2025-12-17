@@ -1,0 +1,31 @@
+[0m05:06:29.181069 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x705dac7299d0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x705daab94c20>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x705dac6e6120>]}
+
+
+============================== 05:06:29.185017 | 440fd9eb-21c1-42c2-b11e-6d1ccbfedede ==============================
+[0m05:06:29.185017 [info ] [MainThread]: Running with dbt=1.10.16
+[0m05:06:29.185748 [debug] [MainThread]: running dbt with arguments {'write_json': 'True', 'printer_width': '80', 'log_format': 'default', 'debug': 'False', 'warn_error': 'None', 'fail_fast': 'False', 'invocation_command': 'dbt init finance_dbt', 'quiet': 'False', 'version_check': 'True', 'warn_error_options': 'WarnErrorOptionsV2(error=[], warn=[], silence=[])', 'cache_selected_only': 'False', 'send_anonymous_usage_stats': 'True', 'log_path': 'logs', 'log_cache_events': 'False', 'no_print': 'None', 'target_path': 'None', 'profiles_dir': '/home/derrick-onsongo/.dbt', 'partial_parse': 'True', 'empty': 'None', 'use_experimental_parser': 'False', 'use_colors': 'True', 'static_parser': 'True', 'introspect': 'True', 'indirect_selection': 'eager'}
+[0m05:06:29.196679 [info ] [MainThread]: Creating dbt configuration folder at /home/derrick-onsongo/.dbt
+[0m05:06:29.199768 [debug] [MainThread]: Starter project path: /home/derrick-onsongo/finance-data-project/venv/lib/python3.12/site-packages/dbt/include/starter_project
+[0m05:06:29.203841 [info ] [MainThread]: 
+Your new dbt project "finance_dbt" was created!
+
+For more information on how to configure the profiles.yml file,
+please consult the dbt documentation here:
+
+  https://docs.getdbt.com/docs/configure-your-profile
+
+One more thing:
+
+Need help? Don't hesitate to reach out to us via GitHub issues or on Slack:
+
+  https://community.getdbt.com/
+
+Happy modeling!
+
+[0m05:06:29.204787 [info ] [MainThread]: Setting up your profile.
+[0m05:06:54.647861 [info ] [MainThread]: Profile finance_dbt written to /home/derrick-onsongo/.dbt/profiles.yml using target's sample configuration. Once updated, you'll be able to start developing with dbt.
+[0m05:06:54.693945 [debug] [MainThread]: Resource report: {"command_name": "init", "command_success": true, "command_wall_clock_time": 25.575558, "process_in_blocks": "952", "process_kernel_time": 0.204276, "process_mem_max_rss": "128768", "process_out_blocks": "72", "process_user_time": 1.649397}
+[0m05:06:54.694745 [debug] [MainThread]: Command `dbt init` succeeded at 05:06:54.694636 after 25.58 seconds
+[0m05:06:54.695236 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x705daa47bce0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x705da9c348f0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x705da9c36450>]}
+[0m05:06:54.695738 [debug] [MainThread]: Flushing usage events
+[0m05:06:56.172693 [debug] [MainThread]: An error was encountered while trying to flush usage events

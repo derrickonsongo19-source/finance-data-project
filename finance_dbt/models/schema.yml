@@ -1,0 +1,43 @@
+version: 2
+
+models:
+  - name: stg_transactions
+    description: "Cleaned transaction data from bronze layer"
+    columns:
+      - name: id
+        description: "Unique transaction identifier"
+        tests:
+          - unique
+          - not_null
+      - name: transaction_date
+        description: "Date of the transaction"
+        tests:
+          - not_null
+      - name: amount
+        description: "Transaction amount (negative for expenses, positive for income)"
+        tests:
+          - not_null
+      - name: category
+        description: "Transaction category"
+        tests:
+          - not_null
+      - name: account
+        description: "Bank account name"
+        tests:
+          - not_null
+
+  - name: financial_summary
+    description: "Aggregated financial summary for reporting"
+    columns:
+      - name: transaction_date
+        description: "Date of the transactions"
+      - name: daily_transactions
+        description: "Number of transactions on this date"
+
+  - name: monthly_trends
+    description: "Monthly spending trends with month-over-month changes"
+    columns:
+      - name: month
+        description: "First day of the month"
+      - name: expense_change_percent
+        description: "Percentage change in expenses from previous month"
