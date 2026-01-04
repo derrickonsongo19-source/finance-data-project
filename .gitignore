@@ -35,3 +35,5 @@ dbt_packages/
 logs/
 *.db
 *.sqlite
+finance_dbt/finance_data.db
+finance_dbt/*.db
