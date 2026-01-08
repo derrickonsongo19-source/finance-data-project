@@ -1,0 +1,54 @@
+{
+  "contract_name": "transactions_silver_contract",
+  "created_at": "2026-01-08T20:42:57.974298",
+  "columns": [
+    {
+      "name": "id",
+      "dtype": "Int64",
+      "nullable": false,
+      "min_value": null,
+      "max_value": null,
+      "allowed_values": null
+    },
+    {
+      "name": "date",
+      "dtype": "Date",
+      "nullable": false,
+      "min_value": null,
+      "max_value": null,
+      "allowed_values": null
+    },
+    {
+      "name": "amount",
+      "dtype": "Float64",
+      "nullable": false,
+      "min_value": -10000,
+      "max_value": 100000,
+      "allowed_values": null
+    },
+    {
+      "name": "category",
+      "dtype": "Utf8",
+      "nullable": false,
+      "min_value": null,
+      "max_value": null,
+      "allowed_values": [
+        "Salary",
+        "Shopping",
+        "Transport",
+        "Restaurant",
+        "Coffee",
+        "Utilities",
+        "Entertainment"
+      ]
+    },
+    {
+      "name": "account",
+      "dtype": "Utf8",
+      "nullable": false,
+      "min_value": null,
+      "max_value": null,
+      "allowed_values": null
+    }
+  ]
+}

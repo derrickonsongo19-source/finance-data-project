@@ -1,0 +1,16 @@
+[
+  {
+    "timestamp": "2026-01-08T20:32:15.589742",
+    "source": "bank_statement.csv",
+    "transformation": "bronze_layer.py: raw ingestion",
+    "destination": "data/bronze/transactions_raw.parquet",
+    "row_count": 150
+  },
+  {
+    "timestamp": "2026-01-08T20:32:15.590332",
+    "source": "data/bronze/transactions_raw.parquet",
+    "transformation": "silver_layer.py: clean & type conversion",
+    "destination": "data/silver/transactions_clean.parquet",
+    "row_count": 145
+  }
+]
