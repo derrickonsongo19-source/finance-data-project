@@ -30,7 +30,7 @@ category_summary = transactions_df.filter(pl.col("amount") < 0).group_by("catego
 ]).sort("total_spent")
 
 # C. Account balance tracking
-account_balance = transactions_df.group_by("account").agg([
+account_balance = transactions_df.group_by("account_id").agg([
     pl.sum("amount").alias("current_balance"),
     pl.count().alias("transaction_count"),
     pl.col("amount").filter(pl.col("amount") < 0).sum().alias("total_withdrawals"),
@@ -58,7 +58,7 @@ conn.execute("""
         d.total_income,
         c.category,
         c.total_spent as category_spending,
-        a.account,
+        a.account_id as account,
         a.current_balance
     FROM gold_daily_summary d
     CROSS JOIN gold_category_summary c

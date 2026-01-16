@@ -9,7 +9,7 @@ from airflow.operators.bash import BashOperator
 from airflow.operators.empty import EmptyOperator
 import sys
 import os
-import pandas as pd
+import polars as pl
 import duckdb
 
 sys.path.insert(0, '/home/derrick-onsongo/finance-data-project')
@@ -38,8 +38,8 @@ def generate_monthly_summary():
     """Generate comprehensive monthly financial summary"""
     conn = duckdb.connect('/home/derrick-onsongo/finance-data-project/finance_data.db')
     
-    # Monthly summary
-    monthly_summary = conn.execute("""
+    # Monthly summary - convert from pandas to polars
+    monthly_summary_pd = conn.execute("""
         SELECT
             year,
             month,
@@ -59,14 +59,16 @@ def generate_monthly_summary():
         ORDER BY total_expenses DESC
     """).df()
     
+    monthly_summary = pl.from_pandas(monthly_summary_pd)
+    
     # Save monthly summary
     os.makedirs('/home/derrick-onsongo/finance-data-project/reports/monthly', exist_ok=True)
     report_path = f'/home/derrick-onsongo/finance-data-project/reports/monthly/summary_{datetime.now().strftime("%Y%m")}.csv'
-    monthly_summary.to_csv(report_path, index=False)
+    monthly_summary.write_csv(report_path)
     print(f"📈 Monthly summary saved to: {report_path}")
     
     # Generate insights
-    insights = conn.execute("""
+    insights_pd = conn.execute("""
         WITH monthly_data AS (
             SELECT
                 category_group,
@@ -84,8 +86,10 @@ def generate_monthly_summary():
         ORDER BY monthly_expenses
     """).df()
     
+    insights = pl.from_pandas(insights_pd)
+    
     insights_path = f'/home/derrick-onsongo/finance-data-project/reports/monthly/insights_{datetime.now().strftime("%Y%m")}.csv'
-    insights.to_csv(insights_path, index=False)
+    insights.write_csv(insights_path)
     print(f"🔍 Monthly insights saved to: {insights_path}")
     
     conn.close()
@@ -106,7 +110,7 @@ def generate_budget_vs_actual():
     """)
     
     # Compare actual vs budget
-    comparison = conn.execute("""
+    comparison_pd = conn.execute("""
         SELECT
             COALESCE(b.category_group, a.category_group) as category_group,
             COALESCE(b.budget_amount, 0) as budgeted,
@@ -122,8 +126,10 @@ def generate_budget_vs_actual():
         GROUP BY b.category_group, b.budget_amount, a.category_group
     """).df()
     
+    comparison = pl.from_pandas(comparison_pd)
+    
     comparison_path = f'/home/derrick-onsongo/finance-data-project/reports/monthly/budget_vs_actual_{datetime.now().strftime("%Y%m")}.csv'
-    comparison.to_csv(comparison_path, index=False)
+    comparison.write_csv(comparison_path)
     print(f"💰 Budget vs Actual saved to: {comparison_path}")
     
     conn.close()

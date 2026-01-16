@@ -94,7 +94,6 @@ def data_quality_check():
 
 def generate_daily_report():
     """Generate daily financial report"""
-    import pandas as pd
     import duckdb
     
     conn = duckdb.connect('/home/derrick-onsongo/finance-data-project/finance_data.db')

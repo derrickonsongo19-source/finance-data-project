@@ -1,8 +1,8 @@
 import psycopg2
-import pandas as pd
+import polars as pl
 
-# Read CSV
-df = pd.read_csv('bank_statement.csv')
+# Read CSV using Polars
+df = pl.read_csv('bank_statement.csv')
 
 # Connect to PostgreSQL
 conn = psycopg2.connect(
@@ -14,8 +14,8 @@ conn = psycopg2.connect(
 )
 cursor = conn.cursor()
 
-# Insert each row
-for index, row in df.iterrows():
+# Insert each row using Polars iter_rows
+for row in df.iter_rows(named=True):
     cursor.execute(
         "INSERT INTO transactions (date, amount, category, account) VALUES (%s, %s, %s, %s)",
         (row['date'], row['amount'], row['category'], row['account'])
@@ -23,4 +23,4 @@ for index, row in df.iterrows():
 
 conn.commit()
 conn.close()
-print(f"✅ Loaded {len(df)} rows from CSV successfully!")
+print(f"✅ Loaded {df.height} rows from CSV successfully!")

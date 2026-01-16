@@ -1,5 +1,4 @@
 import json
-import pandas as pd
 import polars as pl
 from typing import Dict, List, Any
 from dataclasses import dataclass

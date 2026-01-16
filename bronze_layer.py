@@ -1,5 +1,5 @@
 import duckdb
-import pandas as pd
+import polars as pl
 from datetime import datetime
 
 print("=== BRONZE LAYER: Raw Data Ingestion ===")
@@ -9,7 +9,8 @@ conn = duckdb.connect('finance_data.db')
 
 # 1. Load raw transactions from PostgreSQL
 print("1. Loading transactions from PostgreSQL...")
-transactions_df = conn.execute("""
+# Get data from PostgreSQL via DuckDB
+transactions_pd_df = conn.execute("""
     SELECT * FROM postgres_scan(
         'host=localhost port=5432 dbname=postgres user=postgres password=mysecretpassword',
         'public',
@@ -17,15 +18,18 @@ transactions_df = conn.execute("""
     )
 """).df()
 
+# Convert pandas DataFrame to Polars DataFrame
+transactions_df = pl.from_pandas(transactions_pd_df)
+
 # Save to bronze as Parquet (raw format)
-transactions_df.to_parquet('data/bronze/transactions_raw.parquet')
-print(f"   → Saved {len(transactions_df)} transactions to bronze layer")
+transactions_df.write_parquet('data/bronze/transactions_raw.parquet')
+print(f"   → Saved {transactions_df.height} transactions to bronze layer")
 
 # 2. Load raw news data
 print("2. Loading news data from CSV...")
-news_df = pd.read_csv('financial_news.csv')
-news_df.to_parquet('data/bronze/news_raw.parquet')
-print(f"   → Saved {len(news_df)} news items to bronze layer")
+news_df = pl.read_csv('financial_news.csv')
+news_df.write_parquet('data/bronze/news_raw.parquet')
+print(f"   → Saved {news_df.height} news items to bronze layer")
 
 # 3. Create bronze schema table
 conn.execute("""

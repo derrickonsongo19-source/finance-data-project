@@ -9,7 +9,6 @@ from airflow.operators.bash import BashOperator
 from airflow.operators.empty import EmptyOperator
 import sys
 import os
-import pandas as pd
 import duckdb
 
 sys.path.insert(0, '/home/derrick-onsongo/finance-data-project')
